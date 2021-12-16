@@ -1,0 +1,18 @@
+@font-face {
+  font-family: 'New Gothic';
+  src: url('~@/assets/fonts/MNewsGothic-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'New Gothic';
+  src: url('~@/assets/fonts/MNewsGothic-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'New Gothic';
+  src: url('~@/assets/fonts/MNewsGothic-Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}

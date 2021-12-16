@@ -1,0 +1,12 @@
+{
+  "api-error": "API error",
+  "header": {
+    "title": "Favourite heroes project",
+    "home": "Home",
+    "favourite": "Favourite"
+  },
+  "hero-card": {
+    "name": "name:",
+    "homeworld": "homeworld:"
+  }
+}

@@ -1,0 +1,11 @@
+@import './_reset.css';
+@import './typography.css';
+
+body {
+  @include container;
+  color: $white;
+  font-family: 'New Gothic', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  background-size: cover;
+  background: fixed $black url('./assets/img/star-wars-bg.jpg') 50% 50% no-repeat;
+}
