@@ -3,15 +3,14 @@
     <div
       v-if="!isFavourite"
       class="card__like"
-      @click="addToFavourite(id)"
+      @click="addToFavourite"
     >
       ❤️
     </div>
-    <!-- TODO del-event -->
     <div
       v-else
       class="card__like"
-      @click="deleteFromFavourite(id), $emit('del-event')"
+      @click="deleteFromFavourite"
     >
       💔
     </div>
@@ -56,17 +55,18 @@ export default Vue.extend({
   },
 
   methods: {
-    addToFavourite(id: number): void {
+    addToFavourite(): void {
       const heroData = {
-        id,
+        id: this.id,
         name: this.name,
         img: this.img,
         homeworld: this.homeworld,
       };
-      this.$store.dispatch('add', heroData); // TODO
+      this.$store.dispatch('addToFavourite', heroData);
     },
-    deleteFromFavourite(id: number): void {
-      this.$store.dispatch('del', id); // TODO
+
+    deleteFromFavourite(): void {
+      this.$store.dispatch('deleteFromFavourite', this.id);
     },
   },
 });

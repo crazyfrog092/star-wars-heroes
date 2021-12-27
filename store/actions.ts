@@ -7,6 +7,9 @@ export interface IActions<C = Commit, D = Dispatch>{
   fetchHeroHomeworld(_: any, { url, item }: { url: string, item: IHero }): Promise<void>,
   setCurrentPage({ commit }: { commit: C }, payload: number): void,
   setSearch({ commit }: { commit: C }, payload: string): void,
+  addToFavourite({ commit }: { commit: C }, payload: IHero): void,
+  getFavouriteHeroes({ commit }: { commit: C }): void,
+  deleteFromFavourite({ commit }: { commit: C }, id: number): void,
 }
 
 const actions: ActionTree<IState, IState> & IActions = {
@@ -55,6 +58,33 @@ const actions: ActionTree<IState, IState> & IActions = {
 
   setSearch({ commit }, payload) {
     commit(Mutations.SET_SEARCH, payload);
+  },
+
+  addToFavourite({ commit }, payload) {
+    let heroes: Array<IHero> = [];
+    const heroesJson: string | null = localStorage.getItem('heroes');
+    if (heroesJson) heroes = JSON.parse(heroesJson);
+    heroes.push(payload);
+    localStorage.setItem('heroes', JSON.stringify(heroes));
+    commit(Mutations.SET_FAVOURITE_HEROES, heroes);
+  },
+
+  getFavouriteHeroes({ commit }) {
+    let heroes: Array<IHero> = [];
+    const heroesJson: string | null = localStorage.getItem('heroes');
+    if (heroesJson) {
+      heroes = JSON.parse(heroesJson);
+      commit(Mutations.SET_FAVOURITE_HEROES, heroes);
+    }
+  },
+
+  deleteFromFavourite({ commit }, id) {
+    let heroes: Array<IHero> = [];
+    const heroesJson: string | null = localStorage.getItem('heroes');
+    if (heroesJson) heroes = JSON.parse(heroesJson);
+    heroes = heroes.filter((hero: IHero) => hero.id !== id);
+    localStorage.setItem('heroes', JSON.stringify(heroes));
+    commit(Mutations.SET_FAVOURITE_HEROES, heroes);
   },
 };
 

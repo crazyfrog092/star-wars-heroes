@@ -1,5 +1,6 @@
 {
   "api-error": "API error",
+  "empty": "You haven't added a single hero",
   "header": {
     "title": "Favourite heroes project",
     "home": "Home",

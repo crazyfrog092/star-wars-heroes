@@ -15,15 +15,16 @@
         :img="item.img"
         :name="item.name"
         :homeworld="item.homeworld"
-        :is-favourite="false"
+        :is-favourite="findFavouriteHero(item.id)"
       />
     </div>
     <div class="home__pagination">
       <b-pagination
-        v-model="currentPage"
+        :value="currentPage"
         :per-page="10"
         :total-rows="heroes.count"
         class="pagination-dark"
+        @input="setCurrentPage"
       />
     </div>
   </section>
@@ -33,7 +34,7 @@
 import Vue from 'vue';
 import { mapGetters } from 'vuex';
 import Card from '@/components/Card.vue';
-import { IFetchHeroesPayload } from '@/store/consts';
+import { IFetchHeroesPayload, IHero } from '@/store/consts';
 
 export default Vue.extend({
   components: {
@@ -49,13 +50,21 @@ export default Vue.extend({
   computed: {
     ...mapGetters({
       heroes: 'getHeroes',
+      favouriteHeroes: 'getFavouriteHeroes',
       currentPage: 'getCurrentPage',
       search: 'getSearch',
     }),
   },
 
+  watch: {
+    currentPage() {
+      this.fetchHeroes();
+    },
+  },
+
   created(): void {
     this.fetchHeroes();
+    this.$store.dispatch('getFavouriteHeroes');
   },
 
   methods: {
@@ -79,7 +88,7 @@ export default Vue.extend({
     createTimer(): void {
       this.clearTimer();
       this.timer = setTimeout(() => {
-        this.fetchHeroes();
+        this.initFetchHeroes();
       }, 1500);
     },
 
@@ -94,6 +103,10 @@ export default Vue.extend({
     setSearch(value: string): void {
       this.createTimer();
       this.$store.dispatch('setSearch', value);
+    },
+
+    findFavouriteHero(id: number): boolean {
+      return this.favouriteHeroes.findIndex((item: IHero) => item.id === id) !== -1;
     },
   },
 });
